@@ -1,713 +1,743 @@
-/* ============================================================
-   AOTSUKI LABS — style.css
-   Tight · Dense · Apple/Vercel precision · No wasted space
-   ============================================================ */
-
-:root {
-  --white:    #ffffff;
-  --gray-50:  #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-400: #9ca3af;
-  --gray-500: #6b7280;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-800: #1f2937;
-  --gray-900: #111827;
-  --ink:      #09090b;
-
-  --blue:     #2563eb;
-  --blue-bg:  #eff6ff;
-  --blue-mid: #dbeafe;
-  --violet:   #7c3aed;
-  --vio-bg:   #f5f3ff;
-  --vio-mid:  #ede9fe;
-  --green:    #16a34a;
-
-  --border:   #e5e7eb;
-  --border-2: #d1d5db;
-
-  --f: 'Inter', -apple-system, sans-serif;
-  --m: 'JetBrains Mono', 'SF Mono', monospace;
-
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --fast: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-  --nav:  60px;
-  --max:  1080px;
-  --pad:  clamp(16px, 4vw, 64px);
-}
-
-/* ── Reset ─────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  background: var(--white);
-  color: var(--gray-900);
-  font-family: var(--f);
-  font-size: 15px;
-  line-height: 1.6;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  cursor: auto;
-}
-a { color: inherit; text-decoration: none; cursor: pointer; }
-ul, ol { list-style: none; }
-button { font: inherit; cursor: pointer; border: none; background: none; }
-svg { display: block; flex-shrink: 0; }
-
-/* ── Utilities ──────────────────────────────────── */
-.wrap   { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
-.accent { color: var(--blue); }
-.violet { color: var(--violet); }
-.mt-12  { margin-top: 12px; }
-.mt-16  { margin-top: 16px; }
-.mb-24  { margin-bottom: 24px; }
-
-/* ── Dots ───────────────────────────────────────── */
-.dot {
-  display: inline-block;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.dot.blue   { background: var(--blue); }
-.dot.violet { background: var(--violet); }
-.dot.green  { background: var(--green); animation: dotPulse 2.5s ease-in-out infinite; }
-@keyframes dotPulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-
-/* ── Reveal ─────────────────────────────────────── */
-.reveal {
-  opacity: 1; transform: none;
-  transition: opacity 0.65s var(--fast), transform 0.65s var(--fast);
-  transition-delay: var(--d, 0ms);
-}
-.reveal.off { opacity: 0; transform: translateY(18px); }
-
-/* ── CSS animations (hero) ──────────────────────── */
-@keyframes up { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
-@keyframes fi { from { opacity:0; } to { opacity:1; } }
-.a1{opacity:0;animation:up .7s var(--fast) 0.04s forwards}
-.a2{opacity:0;animation:up .7s var(--fast) 0.14s forwards}
-.a3{opacity:0;animation:up .7s var(--fast) 0.24s forwards}
-.a4{opacity:0;animation:up .7s var(--fast) 0.34s forwards}
-.a5{opacity:0;animation:up .7s var(--fast) 0.44s forwards}
-
-/* ============================================================
-   NAV
-   ============================================================ */
-#nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 1000; height: var(--nav);
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: saturate(180%) blur(16px);
-  -webkit-backdrop-filter: saturate(180%) blur(16px);
-  border-bottom: 1px solid var(--border);
-  transition: border-color .3s;
-}
-#nav.top { border-color: transparent; background: rgba(255,255,255,0.7); }
-
-.nav-inner {
-  max-width: var(--max); margin: 0 auto;
-  padding: 0 var(--pad); height: 100%;
-  display: flex; align-items: center; gap: 8px;
-}
-
-.logo {
-  display: flex; align-items: center; gap: 7px;
-  font-size: 0.92rem; font-weight: 600;
-  letter-spacing: -0.02em; color: var(--gray-900);
-  margin-right: 8px; flex-shrink: 0;
-  transition: opacity .2s;
-}
-.logo:hover { opacity: .7; }
-
-.nav-tabs {
-  display: flex; align-items: center; gap: 1px; flex: 1;
-}
-.nt {
-  padding: 5px 11px; font-size: .82rem; font-weight: 500;
-  color: var(--gray-500); border-radius: 6px;
-  transition: color .15s, background .15s;
-  cursor: pointer; white-space: nowrap;
-}
-.nt:hover  { color: var(--gray-800); background: var(--gray-100); }
-.nt.active { color: var(--gray-900); background: var(--gray-100); }
-
-.nav-dl {
-  display: flex; align-items: center; gap: 6px;
-  font-size: .8rem; font-weight: 600;
-  color: var(--white); background: var(--ink);
-  padding: 7px 15px; border-radius: 20px;
-  transition: background .2s, transform .15s;
-  white-space: nowrap; flex-shrink: 0; margin-left: auto;
-}
-.nav-dl:hover { background: var(--gray-800); transform: scale(1.02); }
-
-.nav-burger { display: none; flex-direction: column; gap: 4px; padding: 4px; flex-shrink: 0; }
-.nav-burger span { display: block; width: 18px; height: 1.5px; background: var(--gray-700); border-radius: 1px; transition: transform .3s, opacity .3s; }
-.nav-burger.open span:nth-child(1) { transform: rotate(45deg) translate(4px,4px); }
-.nav-burger.open span:nth-child(2) { opacity: 0; }
-.nav-burger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px,-4px); }
-
-.nav-drawer {
-  display: none; flex-direction: column;
-  background: var(--white); border-top: 1px solid var(--border);
-  max-height: 0; overflow: hidden; transition: max-height .35s var(--fast);
-}
-.nav-drawer.open { max-height: 440px; }
-.nav-drawer a {
-  display: block; padding: 12px var(--pad);
-  font-size: .9rem; font-weight: 500; color: var(--gray-700);
-  border-bottom: 1px solid var(--border); transition: background .15s;
-}
-.nav-drawer a:hover { background: var(--gray-50); }
-.nav-drawer .drawer-dl {
-  margin: 12px var(--pad); padding: 11px; text-align: center;
-  background: var(--ink); color: var(--white); border-radius: 8px; font-weight: 600;
-  display: block; border-bottom: none;
-}
-
-/* ============================================================
-   TABS
-   ============================================================ */
-.tab {
-  display: none;
-  padding-top: var(--nav);
-  min-height: calc(100vh - var(--nav));
-  animation: fi .3s var(--fast);
-}
-.tab.active { display: block; }
-
-/* ============================================================
-   BUTTONS
-   ============================================================ */
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-size: .84rem; font-weight: 600;
-  color: var(--white); background: var(--ink);
-  padding: 10px 20px; border-radius: 20px;
-  transition: background .2s, transform .15s, box-shadow .2s;
-  white-space: nowrap; cursor: pointer;
-}
-.btn-primary:hover { background: var(--gray-800); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,.2); }
-.btn-primary:active { transform: scale(.98); }
-
-.btn-primary.big { font-size: .9rem; padding: 12px 24px; }
-
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: .84rem; font-weight: 500; color: var(--gray-600);
-  border: 1px solid var(--border-2); padding: 10px 18px; border-radius: 20px;
-  transition: color .2s, border-color .2s, background .2s; cursor: pointer;
-  background: transparent; white-space: nowrap;
-}
-.btn-ghost:hover { color: var(--gray-900); border-color: var(--gray-400); background: var(--gray-50); }
-
-.btn-primary-dark {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-size: .9rem; font-weight: 600;
-  color: var(--ink); background: var(--white);
-  padding: 13px 26px; border-radius: 20px;
-  transition: background .2s, transform .15s; cursor: pointer; white-space: nowrap;
-}
-.btn-primary-dark:hover { background: var(--gray-100); transform: translateY(-1px); }
-
-.btn-outline-light {
-  display: inline-flex; align-items: center;
-  font-size: .9rem; font-weight: 500;
-  color: rgba(255,255,255,.7); background: transparent;
-  border: 1px solid rgba(255,255,255,.2);
-  padding: 13px 22px; border-radius: 20px;
-  transition: color .2s, border-color .2s, background .2s; cursor: pointer; white-space: nowrap;
-}
-.btn-outline-light:hover { color: var(--white); border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.06); }
-
-/* ============================================================
-   PILLS / BADGES
-   ============================================================ */
-.pill {
-  font-family: var(--m); font-size: .62rem; letter-spacing: .1em;
-  color: var(--gray-500); background: var(--gray-100);
-  border: 1px solid var(--border); padding: 3px 9px; border-radius: 20px;
-}
-
-.status-badge {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family: var(--m); font-size: .62rem; letter-spacing: .1em;
-  padding: 4px 10px; border-radius: 20px; font-weight: 500;
-}
-.status-badge.live   { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-.status-badge.soon   { background: var(--vio-mid); color: var(--violet); border: 1px solid #c4b5fd; }
-.status-badge.research { background: var(--gray-100); color: var(--gray-500); border: 1px solid var(--border); }
-
-.label-text {
-  font-family: var(--m); font-size: .62rem; letter-spacing: .18em;
-  color: var(--blue); text-transform: uppercase;
-  margin-bottom: 8px; display: block;
-}
-
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero {
-  padding: 56px var(--pad) 0;
-  background: var(--white);
-}
-.hero-grid {
-  max-width: var(--max); margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
-}
-.kicker {
-  font-family: var(--m); font-size: .62rem; letter-spacing: .16em;
-  color: var(--gray-400); text-transform: uppercase; margin-bottom: 20px; display: block;
-}
-.hero-h1 {
-  font-size: clamp(2.6rem, 6.5vw, 6rem);
-  font-weight: 700; line-height: 1.0; letter-spacing: -.04em;
-  color: var(--gray-900); margin-bottom: 18px;
-}
-.hero-sub {
-  font-size: clamp(.9rem, 1.3vw, 1.05rem); color: var(--gray-500);
-  line-height: 1.68; font-weight: 300; max-width: 420px; margin-bottom: 28px;
-}
-.hero-cta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
-.hero-pills { display: flex; flex-wrap: wrap; gap: 6px; }
-
-/* ── Product hero cards ─────────────────────────── */
-.hero-right { display: flex; flex-direction: column; gap: 10px; }
-
-.product-hero-card {
-  background: var(--gray-50); border: 1px solid var(--border);
-  border-radius: 16px; overflow: hidden;
-}
-.phc-top {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 18px 0;
-}
-.phc-label {
-  display: flex; align-items: center; gap: 6px;
-  font-family: var(--m); font-size: .62rem; letter-spacing: .1em; color: var(--blue);
-}
-.phc-dl {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: .76rem; font-weight: 600; color: var(--white);
-  background: var(--ink); padding: 6px 13px; border-radius: 20px;
-  transition: background .2s; cursor: pointer;
-}
-.phc-dl:hover { background: var(--gray-800); }
-.phc-name {
-  font-size: 2.6rem; font-weight: 700; letter-spacing: -.05em;
-  color: var(--gray-900); padding: 8px 18px 2px;
-}
-.phc-ver {
-  font-family: var(--m); font-size: .6rem; letter-spacing: .1em;
-  color: var(--gray-400); padding: 0 18px 12px;
-}
-.phc-specs {
-  display: grid; grid-template-columns: repeat(4,1fr);
-  gap: 0; border-top: 1px solid var(--border);
-}
-.phc-spec {
-  display: flex; flex-direction: column; gap: 2px;
-  padding: 10px 12px; border-right: 1px solid var(--border);
-}
-.phc-spec:last-child { border-right: none; }
-.spec-k { font-family: var(--m); font-size: .57rem; letter-spacing: .1em; color: var(--gray-400); }
-.spec-v { font-size: .8rem; font-weight: 600; color: var(--gray-800); }
-.phc-term { background: var(--ink); }
-.term-chrome {
-  display: flex; align-items: center; gap: 5px;
-  padding: 8px 12px; background: #141419;
-}
-.tc { display: block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.tc.r{background:#ff5f57} .tc.y{background:#febc2e} .tc.g{background:#28c840}
-.term-chrome span { font-family: var(--m); font-size: .58rem; color: rgba(255,255,255,.25); margin-left: 4px; }
-.term-lines {
-  padding: 10px 14px; font-family: var(--m); font-size: .66rem;
-  line-height: 1.8; color: rgba(255,255,255,.35); min-height: 72px;
-}
-
-.product-v2-card {
-  background: var(--vio-bg); border: 1px solid #c4b5fd;
-  border-radius: 16px; padding: 16px 18px;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  cursor: pointer; transition: background .2s, border-color .2s;
-  text-decoration: none; color: inherit;
-}
-.product-v2-card:hover { background: var(--vio-mid); border-color: #a78bfa; }
-.v2c-badge { display: flex; align-items: center; gap: 6px; font-family: var(--m); font-size: .62rem; letter-spacing: .1em; color: var(--violet); margin-bottom: 4px; }
-.v2c-name { font-size: 1.4rem; font-weight: 700; letter-spacing: -.03em; color: var(--gray-900); margin-bottom: 3px; }
-.v2c-name em { font-style: normal; color: var(--violet); }
-.v2c-sub { font-size: .76rem; color: var(--gray-500); }
-.v2c-arrow { color: var(--violet); flex-shrink: 0; }
-
-/* Stats bar */
-.stats-bar { background: var(--gray-50); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0; }
-.stats-grid { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); display: flex; align-items: stretch; }
-.stat-item { display: flex; flex-direction: column; gap: 1px; padding: 14px 24px; flex: 1; }
-.stat-v { font-size: .95rem; font-weight: 700; letter-spacing: -.02em; color: var(--gray-900); }
-.stat-l { font-family: var(--m); font-size: .56rem; letter-spacing: .12em; color: var(--gray-400); }
-.stat-div { width: 1px; background: var(--border); flex-shrink: 0; }
-
-/* Marquee */
-.marquee { overflow: hidden; border-bottom: 1px solid var(--border); padding: 10px 0; background: var(--white); }
-.mq-track {
-  display: flex; gap: 0; white-space: nowrap; width: max-content;
-  animation: mq 50s linear infinite;
-}
-.mq-track span { font-family: var(--m); font-size: .64rem; letter-spacing: .1em; color: var(--gray-400); padding: 0 18px; }
-.mq-track b    { color: var(--blue); opacity: .4; font-weight: 400; }
-@keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-/* ============================================================
-   HOME SECTIONS
-   ============================================================ */
-.home-section { padding: 56px var(--pad); }
-.bg-subtle { background: var(--gray-50); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-
-.two-col { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: start; }
-.section-h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.15; }
-.body-text  { font-size: .9rem; color: var(--gray-500); line-height: 1.72; font-weight: 300; }
-.muted-small { font-family: var(--m); font-size: .6rem; color: var(--gray-400); letter-spacing: .08em; }
-
-/* Sector grid */
-.sector-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
-.sector-card {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: 14px; padding: 24px 20px;
-  display: flex; flex-direction: column;
-  cursor: pointer; text-align: left;
-  transition: border-color .25s, box-shadow .25s, transform .25s var(--fast);
-}
-.sector-card:hover { border-color: var(--border-2); box-shadow: 0 4px 20px rgba(0,0,0,.07); transform: translateY(-2px); }
-.sc-ico {
-  width: 36px; height: 36px; border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 14px; flex-shrink: 0;
-}
-.sc-ico.blue   { background: var(--blue-mid);  color: var(--blue); }
-.sc-ico.violet { background: var(--vio-mid);   color: var(--violet); }
-.sc-num { font-family: var(--m); font-size: .58rem; letter-spacing: .18em; color: var(--gray-300); margin-bottom: 6px; }
-.sc-title { font-size: .95rem; font-weight: 600; color: var(--gray-900); margin-bottom: 8px; letter-spacing: -.01em; }
-.sc-body { font-size: .8rem; color: var(--gray-500); line-height: 1.6; flex: 1; margin-bottom: 14px; }
-.sc-link { font-size: .78rem; font-weight: 600; color: var(--blue); margin-top: auto; }
-.sc-link.violet { color: var(--violet); }
-
-/* Principles */
-.principles-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-.pr-card { background: var(--white); padding: 24px 20px; }
-.pr-n    { font-family: var(--m); font-size: .57rem; letter-spacing: .18em; color: var(--gray-300); display: block; margin-bottom: 10px; }
-.pr-card h3 { font-size: .9rem; font-weight: 600; color: var(--gray-900); margin-bottom: 7px; letter-spacing: -.01em; }
-.pr-card p  { font-size: .78rem; color: var(--gray-500); line-height: 1.6; }
-
-/* Home CTA */
-.home-cta { background: var(--ink); padding: 80px var(--pad); border-top: 1px solid var(--border); }
-.cta-inner { max-width: 600px; margin: 0 auto; text-align: center; }
-.cta-h2   { font-size: clamp(1.8rem, 4vw, 3.4rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.08; color: var(--white); margin-bottom: 12px; }
-.cta-sub  { font-size: .95rem; color: rgba(255,255,255,.5); line-height: 1.65; margin-bottom: 28px; }
-.cta-btns { display: flex; align-items: center; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
-.cta-note { font-family: var(--m); font-size: .58rem; color: rgba(255,255,255,.25); letter-spacing: .1em; }
-
-/* ============================================================
-   PAGE HEADER (inner pages)
-   ============================================================ */
-.page-header { padding: 48px 0 36px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
-.page-h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; margin-bottom: 8px; }
-.page-sub { font-size: .95rem; color: var(--gray-500); font-weight: 300; }
-
-/* ============================================================
-   PRODUCTS PAGE
-   ============================================================ */
-
-/* Category tabs */
-.cat-tabs { display: flex; gap: 4px; margin-bottom: 24px; }
-.cat-tab {
-  display: flex; align-items: center; gap: 6px;
-  font-size: .82rem; font-weight: 500; color: var(--gray-500);
-  padding: 7px 14px; border-radius: 8px; border: 1px solid transparent;
-  transition: all .15s; cursor: pointer; background: transparent;
-}
-.cat-tab:hover { color: var(--gray-800); background: var(--gray-100); }
-.cat-tab.active { color: var(--gray-900); background: var(--gray-100); border-color: var(--border); }
-
-/* Category panels */
-.cat-panel { display: none; }
-.cat-panel.active { display: block; }
-
-/* Product nav (v1/v2 selector) */
-.prod-nav { display: flex; gap: 6px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-.pn-item {
-  display: flex; align-items: center; gap: 8px;
-  font-size: .84rem; font-weight: 500; color: var(--gray-500);
-  padding: 6px 14px; border-radius: 8px; border: 1px solid transparent;
-  transition: all .15s; cursor: pointer; background: transparent;
-}
-.pn-item:hover { color: var(--gray-800); background: var(--gray-50); }
-.pn-item.active { color: var(--gray-900); background: var(--white); border-color: var(--border); box-shadow: 0 1px 3px rgba(0,0,0,.07); }
-.pn-name { font-weight: 600; }
-.pn-badge {
-  font-family: var(--m); font-size: .58rem; letter-spacing: .1em;
-  padding: 2px 7px; border-radius: 20px;
-}
-.pn-badge.live { background: #dcfce7; color: #15803d; }
-.pn-badge.soon { background: var(--vio-mid); color: var(--violet); }
-
-/* Product detail panels */
-.prod-detail { display: none; }
-.prod-detail.active { display: block; }
-
-.prod-layout { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
-.prod-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
-.prod-name { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; letter-spacing: -.05em; line-height: 1; }
-.prod-version { font-family: var(--m); font-size: .62rem; letter-spacing: .1em; color: var(--gray-400); margin-top: 4px; }
-.prod-desc { font-size: .95rem; color: var(--gray-600); line-height: 1.7; margin-bottom: 28px; font-weight: 300; }
-
-/* Feature list */
-.feat-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 32px; }
-.feat-item { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
-.feat-item:first-child { border-top: 1px solid var(--border); }
-.feat-ico {
-  width: 32px; height: 32px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
-}
-.feat-ico.blue { background: var(--blue-mid); color: var(--blue); }
-.feat-title { font-size: .88rem; font-weight: 600; color: var(--gray-900); margin-bottom: 4px; letter-spacing: -.01em; }
-.feat-body  { font-size: .82rem; color: var(--gray-500); line-height: 1.6; }
-
-/* Download block */
-.dl-block { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
-.dl-meta { font-family: var(--m); font-size: .6rem; letter-spacing: .09em; color: var(--gray-400); }
-
-/* Spec block (sidebar) */
-.spec-block {
-  background: var(--gray-50); border: 1px solid var(--border);
-  border-radius: 12px; overflow: hidden; margin-bottom: 16px;
-}
-.sb-title {
-  font-size: .75rem; font-weight: 600; color: var(--gray-700);
-  padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--white);
-  letter-spacing: -.01em;
-}
-.spec-row {
-  display: flex; align-items: baseline; gap: 8px;
-  padding: 9px 16px; border-bottom: 1px solid var(--border); font-size: .78rem;
-}
-.spec-row.last { border-bottom: none; }
-.sk { color: var(--gray-400); font-weight: 400; flex-shrink: 0; min-width: 90px; font-family: var(--m); font-size: .68rem; letter-spacing: .04em; }
-.sv { color: var(--gray-800); font-weight: 500; }
-
-/* Terminal block (sidebar) */
-.terminal-block { border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); }
-.term-out {
-  background: #0d0d12; padding: 14px 16px;
-  font-family: var(--m); font-size: .68rem; line-height: 1.85;
-  color: rgba(255,255,255,.35); min-height: 200px; overflow-y: auto;
-}
-.tl { display: block; }
-.tp { color: rgba(37,99,235,.5); margin-right: 6px; }
-.tok { color: rgba(37,99,235,.9); }
-.tdone { color: #60a5fa; font-weight: 500; }
-.tdim { color: rgba(255,255,255,.18); }
-.tcur { animation: tcur 1.1s step-end infinite; }
-@keyframes tcur { 0%,100%{opacity:1} 50%{opacity:0} }
-.tin { opacity:0; animation: tlin .2s var(--fast) forwards; }
-@keyframes tlin { to { opacity:1; } }
-
-/* V2 compare */
-.v2-compare { margin-bottom: 28px; }
-.v2c-title { font-size: .78rem; font-weight: 600; color: var(--gray-600); margin-bottom: 14px; letter-spacing: -.01em; }
-.v2-feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.v2-feat-item { display: flex; gap: 10px; align-items: flex-start; padding: 14px; background: var(--vio-bg); border: 1px solid #c4b5fd; border-radius: 10px; }
-.vfi-check { color: var(--violet); font-weight: 700; font-size: .9rem; flex-shrink: 0; margin-top: 1px; }
-.vfi-t { font-size: .82rem; font-weight: 600; color: var(--gray-900); margin-bottom: 3px; }
-.vfi-d { font-size: .76rem; color: var(--gray-500); line-height: 1.5; }
-
-/* Roadmap */
-.roadmap-block { margin-bottom: 28px; }
-.rm-title { font-size: .78rem; font-weight: 600; color: var(--gray-600); margin-bottom: 14px; }
-.rm-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
-.rm-item:first-child { border-top: 1px solid var(--border); }
-.rm-dot {
-  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; margin-top: 2px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--gray-100); border: 1.5px solid var(--border);
-  font-size: .6rem; color: var(--gray-400);
-}
-.rm-dot.done   { background: #dcfce7; border-color: #86efac; }
-.rm-dot.active { background: var(--vio-mid); border-color: #a78bfa; }
-.rm-step-t { font-size: .84rem; font-weight: 600; color: var(--gray-900); margin-bottom: 3px; }
-.rm-step-d { font-size: .78rem; color: var(--gray-500); line-height: 1.55; }
-
-/* V2 interim */
-.v2-interim {
-  padding: 18px 20px; background: var(--gray-50); border: 1px solid var(--border); border-radius: 10px;
-  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-}
-.v2-interim p { font-size: .85rem; color: var(--gray-600); }
-
-/* V2 sidebar blocks */
-.v2-status-block {
-  background: var(--vio-bg); border: 1px solid #c4b5fd;
-  border-radius: 12px; padding: 20px; margin-bottom: 14px;
-}
-.vsb-label { font-family: var(--m); font-size: .6rem; letter-spacing: .14em; color: var(--violet); margin-bottom: 6px; }
-.vsb-val { font-size: 1.1rem; font-weight: 700; color: var(--gray-900); letter-spacing: -.02em; margin-bottom: 3px; }
-.vsb-sub { font-size: .75rem; color: var(--gray-500); }
-
-.v2-checklist { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-.vcl-title { font-size: .75rem; font-weight: 600; color: var(--gray-600); padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--gray-50); }
-.vcl-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 16px; border-bottom: 1px solid var(--border); font-size: .78rem; }
-.vcl-row:last-child { border-bottom: none; }
-.vcl-k   { color: var(--gray-500); }
-.vcl-new { color: var(--violet); font-weight: 600; font-size: .72rem; }
-.vcl-v1  { color: var(--blue); font-weight: 600; font-size: .72rem; }
-
-/* Coming soon panel */
-.coming-soon-panel {
-  display: flex; flex-direction: column; align-items: flex-start;
-  padding: 48px 0; max-width: 560px;
-}
-.csp-icon { width: 52px; height: 52px; border-radius: 13px; background: var(--gray-100); display: flex; align-items: center; justify-content: center; color: var(--gray-400); margin-bottom: 20px; }
-.coming-soon-panel h3 { font-size: 1.2rem; font-weight: 700; color: var(--gray-900); margin-bottom: 10px; letter-spacing: -.02em; }
-.coming-soon-panel p { font-size: .9rem; color: var(--gray-500); line-height: 1.7; margin-bottom: 18px; }
-.csp-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.csp-tags span { font-family: var(--m); font-size: .62rem; color: var(--gray-500); background: var(--gray-100); border: 1px solid var(--border); padding: 4px 10px; border-radius: 20px; letter-spacing: .08em; }
-
-/* ============================================================
-   ABOUT PAGE
-   ============================================================ */
-.about-grid { display: grid; grid-template-columns: 1fr 280px; gap: 40px; margin-bottom: 48px; }
-.about-lead { font-size: 1.1rem; color: var(--gray-700); line-height: 1.7; font-weight: 400; }
-.info-card { background: var(--gray-50); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-.ic-row { display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
-.ic-row.last { border-bottom: none; }
-.ic-k { font-family: var(--m); font-size: .6rem; letter-spacing: .1em; color: var(--gray-400); }
-.ic-v { font-size: .84rem; font-weight: 500; color: var(--gray-800); }
-.ic-v.warning { color: #92400e; font-size: .78rem; }
-
-.manifesto { padding-top: 40px; border-top: 1px solid var(--border); }
-.manifesto-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-.mf-item { background: var(--white); padding: 24px 20px; }
-.mf-n    { font-family: var(--m); font-size: .57rem; letter-spacing: .18em; color: var(--gray-300); display: block; margin-bottom: 8px; }
-.mf-item h3 { font-size: .88rem; font-weight: 600; color: var(--gray-900); margin-bottom: 7px; }
-.mf-item p  { font-size: .78rem; color: var(--gray-500); line-height: 1.6; }
-
-/* ============================================================
-   CAPABILITIES PAGE
-   ============================================================ */
-.cap-list { display: flex; flex-direction: column; }
-.cap-row {
-  display: grid; grid-template-columns: 40px 1fr;
-  gap: 20px; padding: 32px 0; border-bottom: 1px solid var(--border); align-items: start;
-}
-.cap-row:first-child { border-top: 1px solid var(--border); }
-.cap-row.last { border-bottom: none; }
-.cap-n { font-family: var(--m); font-size: .66rem; letter-spacing: .16em; color: var(--gray-300); padding-top: 4px; }
-.cap-body h3 { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); margin-bottom: 10px; letter-spacing: -.02em; }
-.cap-body p  { font-size: .88rem; color: var(--gray-500); line-height: 1.72; max-width: 720px; margin-bottom: 14px; font-weight: 300; }
-.cap-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.cap-tags span { font-family: var(--m); font-size: .6rem; letter-spacing: .08em; color: var(--blue); background: var(--blue-bg); border: 1px solid var(--blue-mid); padding: 3px 9px; border-radius: 4px; }
-
-/* ============================================================
-   INVEST PAGE
-   ============================================================ */
-.invest-disclaimer {
-  display: flex; align-items: center; gap: 8px;
-  font-family: var(--m); font-size: .64rem; letter-spacing: .08em;
-  color: #92400e; background: #fef3c7; border: 1px solid #fcd34d;
-  padding: 10px 14px; border-radius: 8px; margin-bottom: 32px;
-}
-.invest-intro { margin-bottom: 40px; }
-.thesis-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-bottom: 48px; }
-.thesis-card {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: 14px; padding: 24px 20px;
-  transition: border-color .25s, box-shadow .25s, transform .25s var(--fast);
-}
-.thesis-card:hover { border-color: var(--border-2); box-shadow: 0 4px 20px rgba(0,0,0,.07); transform: translateY(-2px); }
-.thesis-ico { width: 36px; height: 36px; border-radius: 9px; background: var(--vio-bg); border: 1px solid #c4b5fd; display: flex; align-items: center; justify-content: center; color: var(--violet); margin-bottom: 14px; }
-.thesis-card h3 { font-size: .92rem; font-weight: 600; color: var(--gray-900); margin-bottom: 8px; letter-spacing: -.01em; }
-.thesis-card p  { font-size: .8rem; color: var(--gray-500); line-height: 1.65; }
-
-.invest-diff { margin-bottom: 40px; }
-.diff-list { display: flex; flex-direction: column; }
-.diff-row {
-  display: flex; gap: 14px; padding: 16px 0;
-  border-bottom: 1px solid var(--border); align-items: flex-start;
-  font-size: .88rem; color: var(--gray-600); line-height: 1.6;
-}
-.diff-row:first-child { border-top: 1px solid var(--border); }
-.diff-check { color: var(--green); font-weight: 700; flex-shrink: 0; font-size: .9rem; }
-
-.invest-cta-block {
-  background: var(--gray-50); border: 1px solid var(--border);
-  border-radius: 14px; padding: 32px 28px; margin-top: 8px;
-}
-.invest-cta-block h3 { font-size: 1.1rem; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; letter-spacing: -.02em; }
-.invest-cta-block p  { font-size: .88rem; color: var(--gray-500); line-height: 1.65; margin-bottom: 20px; }
-.cta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-footer {
-  background: var(--ink); border-top: 1px solid rgba(255,255,255,.08);
-  padding: 48px var(--pad) 32px;
-}
-.footer-grid {
-  max-width: var(--max); margin: 0 auto;
-  display: grid; grid-template-columns: 1.4fr repeat(3,1fr);
-  gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 24px;
-}
-.footer-logo { display: flex; align-items: center; gap: 7px; color: var(--white); font-size: .92rem; font-weight: 600; letter-spacing: -.02em; margin-bottom: 10px; }
-.footer-tag  { font-size: .78rem; color: rgba(255,255,255,.35); line-height: 1.6; }
-.footer-col-h { font-size: .76rem; font-weight: 600; color: var(--white); margin-bottom: 12px; }
-.footer-col-links { display: flex; flex-direction: column; gap: 9px; }
-.footer-col-links a, .footer-col-links button { font-size: .8rem; color: rgba(255,255,255,.4); background: none; border: none; cursor: pointer; text-align: left; padding: 0; transition: color .2s; font: inherit; }
-.footer-col-links a:hover, .footer-col-links button:hover { color: var(--white); }
-.footer-legal { font-size: .76rem; color: rgba(255,255,255,.25); line-height: 1.65; }
-.footer-bottom { max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-.footer-bottom span { font-size: .76rem; color: rgba(255,255,255,.25); }
-.footer-status { display: flex; align-items: center; gap: 6px; font-family: var(--m); font-size: .6rem; letter-spacing: .1em; color: rgba(255,255,255,.3); }
-
-/* ============================================================
-   SCROLLBAR
-   ============================================================ */
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(--gray-100); }
-::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 2px; }
-::selection { background: rgba(37,99,235,.15); }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 960px) {
-  .hero-grid   { grid-template-columns: 1fr; }
-  .hero-right  { display: none; }
-  .stats-grid  { flex-wrap: wrap; }
-  .stat-div    { display: none; }
-  .stat-item   { flex: 1 0 40%; }
-  .sector-grid { grid-template-columns: 1fr; gap: 8px; }
-  .principles-grid { grid-template-columns: repeat(2,1fr); }
-  .prod-layout { grid-template-columns: 1fr; }
-  .about-grid  { grid-template-columns: 1fr; }
-  .manifesto-grid { grid-template-columns: 1fr 1fr; }
-  .thesis-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
-  .two-col { grid-template-columns: 1fr; gap: 24px; }
-}
-@media (max-width: 640px) {
-  .nav-tabs { display: none; }
-  .nav-dl   { display: none; }
-  .nav-burger { display: flex; margin-left: auto; }
-  .nav-drawer { display: flex; }
-  .principles-grid { grid-template-columns: 1fr; }
-  .manifesto-grid  { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .v2-feat-grid { grid-template-columns: 1fr; }
-  .phc-specs { grid-template-columns: repeat(2,1fr); }
-  .cap-row { grid-template-columns: 28px 1fr; gap: 12px; }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aotsuki Labs — Engineering Unified Intelligence</title>
+  <meta name="description" content="Aotsuki Labs is a deep-tech engineering collective. Builders of KALIX hardware intelligence. Download KALIX v1 free."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://aotsuki-labs.github.io/"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Aotsuki Labs"/>
+  <meta property="og:description" content="Engineering Unified Intelligence. Deep-tech collective."/>
+  <meta property="og:url" content="https://aotsuki-labs.github.io/"/>
+  <meta name="google-site-verification" content="PIhCtFu24zIhBaTSL2hMifqzlC92e_ZFvEUhd5VmGaA"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN"/>
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<header id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#" data-page="home">
+      <div class="logo-hex">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+          <path d="M10 1L19 5.5V14.5L10 19L1 14.5V5.5L10 1Z" stroke="white" stroke-width="1.5" fill="none"/>
+          <circle cx="10" cy="10" r="2.5" fill="white"/>
+        </svg>
+      </div>
+      <span>Aotsuki</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#" class="nl active" data-page="home">Home</a>
+      <a href="#" class="nl" data-page="products">Products</a>
+      <a href="#" class="nl" data-page="about">About</a>
+      <a href="#" class="nl" data-page="capabilities">Capabilities</a>
+      <a href="#" class="nl" data-page="invest">Invest</a>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#" data-page="home">Home</a>
+    <a href="#" data-page="products">Products</a>
+    <a href="#" data-page="about">About</a>
+    <a href="#" data-page="capabilities">Capabilities</a>
+    <a href="#" data-page="invest">Invest</a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════
+     PAGE: HOME
+═══════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO — dark cinematic -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hb-grad"></div>
+      <div class="hb-grid"></div>
+      <div class="hb-glow hb-glow-1"></div>
+      <div class="hb-glow hb-glow-2"></div>
+      <div class="hb-glow hb-glow-3"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hb-dot"></span>
+        Deep-Tech Engineering Collective · Est. 2025
+      </div>
+
+      <h1 class="hero-title">
+        <span class="ht-line">Engineering</span>
+        <span class="ht-line ht-grad">Unified</span>
+        <span class="ht-line">Intelligence.</span>
+      </h1>
+
+      <p class="hero-desc">
+        Aotsuki builds precision hardware tools and systems software<br>
+        for engineers operating at the frontier of infrastructure.
+      </p>
+
+      <div class="hero-actions">
+        <button class="ha-primary" data-page="products">
+          Explore Products
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg>
+        </button>
+        <button class="ha-ghost" data-page="about">About Aotsuki</button>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="scroll-hint">
+        <div class="sh-line"></div>
+        <span>Scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="mq">
+      <span>Hardware Intelligence</span><i>·</i><span>Kernel-Level Auditing</span><i>·</i><span>Thermal Analysis</span><i>·</i><span>Systems Software</span><i>·</i><span>Distributed Networks</span><i>·</i><span>Zero Telemetry</span><i>·</i><span>Deep-Tech Investment</span><i>·</i><span>SHA-256 Verified</span><i>·</i>
+      <span>Hardware Intelligence</span><i>·</i><span>Kernel-Level Auditing</span><i>·</i><span>Thermal Analysis</span><i>·</i><span>Systems Software</span><i>·</i><span>Distributed Networks</span><i>·</i><span>Zero Telemetry</span><i>·</i><span>Deep-Tech Investment</span><i>·</i><span>SHA-256 Verified</span><i>·</i>
+    </div>
+  </div>
+
+  <!-- PRODUCT SPOTLIGHT -->
+  <section class="section light-section">
+    <div class="w">
+      <div class="section-label purple">Products</div>
+      <h2 class="section-h2">Built with precision.<br>Deployed with trust.</h2>
+
+      <div class="product-cards">
+        <!-- KALIX v1 -->
+        <div class="pc pc-blue">
+          <div class="pc-top">
+            <div class="pc-tag">
+              <span class="pc-dot live"></span>
+              Available Now
+            </div>
+            <div class="pc-sector">Sector 01 · Hardware</div>
+          </div>
+          <div class="pc-name">KALIX</div>
+          <div class="pc-ver">v1.0 · Hardware Auditor</div>
+          <p class="pc-desc">Kernel-level hardware verification. Thermal intelligence. SHA-256 audit manifests. One portable .exe — no install, no telemetry, no compromise.</p>
+          <div class="pc-facts">
+            <div class="pc-fact"><span class="pf-k">Speed</span><span class="pf-v">0.38ms</span></div>
+            <div class="pc-fact"><span class="pf-k">Platform</span><span class="pf-v">WIN64</span></div>
+            <div class="pc-fact"><span class="pf-k">Telemetry</span><span class="pf-v">Zero</span></div>
+          </div>
+          <button class="pc-btn blue" data-page="products" data-prod="v1">
+            View KALIX v1
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg>
+          </button>
+        </div>
+
+        <!-- KALIX v2 -->
+        <div class="pc pc-violet">
+          <div class="pc-top">
+            <div class="pc-tag">
+              <span class="pc-dot soon"></span>
+              In Development
+            </div>
+            <div class="pc-sector">Sector 01 · Hardware</div>
+          </div>
+          <div class="pc-name">KALIX <em>v2</em></div>
+          <div class="pc-ver">Next Generation · Coming Soon</div>
+          <p class="pc-desc">Complete architectural rewrite. Cross-platform, AI-assisted anomaly detection, fleet auditing, and an open plugin API. Ships when it's right.</p>
+          <div class="pc-feat-row">
+            <span>Windows + Linux + macOS</span>
+            <span>AI Detection</span>
+            <span>Fleet Mode</span>
+            <span>Plugin API</span>
+          </div>
+          <button class="pc-btn violet" data-page="products" data-prod="v2">
+            See Roadmap
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE ARE -->
+  <section class="section dark-section">
+    <div class="w">
+      <div class="who-grid">
+        <div class="who-left">
+          <div class="section-label cyan">About Aotsuki</div>
+          <h2 class="section-h2 light">We build for engineers, not investors.</h2>
+          <p class="body-light">Aotsuki is a multi-disciplinary technology collective built on one conviction: the most powerful software is built by people who understand the hardware it runs on.</p>
+          <p class="body-light mt">We ship instruments — tools that reveal truth about the systems operators depend on. Every product is judged by one test: does it give the engineer more accurate information than they had before?</p>
+          <button class="btn-light mt" data-page="about">
+            Our Story
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg>
+          </button>
+        </div>
+        <div class="who-right">
+          <div class="sector-stack">
+            <div class="ss-item ss-blue">
+              <div class="ss-num">01</div>
+              <div>
+                <div class="ss-title">Hardware Intelligence</div>
+                <div class="ss-sub">KALIX v1 live · KALIX v2 building</div>
+              </div>
+            </div>
+            <div class="ss-item ss-teal">
+              <div class="ss-num">02</div>
+              <div>
+                <div class="ss-title">Systems Software</div>
+                <div class="ss-sub">CLI frameworks · Runtime tooling</div>
+              </div>
+            </div>
+            <div class="ss-item ss-violet">
+              <div class="ss-num">03</div>
+              <div>
+                <div class="ss-title">Distributed Networks</div>
+                <div class="ss-sub">Zero-trust mesh · Protocol research</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section class="section light-section">
+    <div class="w">
+      <div class="section-label green">Principles</div>
+      <h2 class="section-h2">How we build.</h2>
+      <div class="pr-row">
+        <div class="pr-card blue-card">
+          <div class="prc-num">01</div>
+          <h3>No Telemetry, Ever</h3>
+          <p>KALIX makes zero network calls. A constraint in the architecture — not a policy we can reverse.</p>
+        </div>
+        <div class="pr-card teal-card">
+          <div class="prc-num">02</div>
+          <h3>Reproducible by Design</h3>
+          <p>Identical hardware, identical state, identical output. A hard engineering requirement, not a claim.</p>
+        </div>
+        <div class="pr-card orange-card">
+          <div class="prc-num">03</div>
+          <h3>Open Output Format</h3>
+          <p>Structured JSON. Plug into any pipeline. No ecosystem lock-in, ever.</p>
+        </div>
+        <div class="pr-card violet-card">
+          <div class="prc-num">04</div>
+          <h3>Engineers First</h3>
+          <p>No onboarding. No tutorials. Full operator competence assumed — always.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVEST TEASER -->
+  <section class="section invest-teaser">
+    <div class="w">
+      <div class="it-inner">
+        <div>
+          <div class="section-label amber">Investment Thesis</div>
+          <h2 class="section-h2 light">We back deep-tech<br>from the inside.</h2>
+          <p class="body-light">We invest capital and engineering talent into the infrastructure layer — hardware intelligence, kernel tooling, network primitives. The part most investors don't understand because they've never built it.</p>
+          <button class="btn-light mt" data-page="invest">
+            Explore Thesis
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg>
+          </button>
+        </div>
+        <div class="it-pillars">
+          <div class="itp"><span class="itp-n">Infrastructure-first</span><span class="itp-d">Below the application layer. Assets that compound over decades.</span></div>
+          <div class="itp"><span class="itp-n">10-year horizons</span><span class="itp-d">Deep-tech compounds slowly and defensibly. Not quarterly metrics.</span></div>
+          <div class="itp"><span class="itp-n">Operator-led DD</span><span class="itp-d">We read source code before committing capital. No pitch decks.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+
+<!-- ═══════════════════════════════
+     PAGE: PRODUCTS
+═══════════════════════════════ -->
+<div id="page-products" class="page">
+  <div class="page-hero prod-hero">
+    <div class="w">
+      <div class="ph-inner">
+        <div class="section-label blue">Products</div>
+        <h1 class="page-h1">Precision tools.<br>Ground-truth data.</h1>
+        <p class="page-sub">KALIX is the hardware intelligence layer for engineers who demand accuracy over abstraction.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product tabs -->
+  <div class="prod-tabs-bar">
+    <div class="w">
+      <div class="prod-tabs">
+        <button class="pt active" data-prod="v1">
+          <span class="pt-dot live"></span>
+          KALIX v1
+          <span class="pt-badge live">Available</span>
+        </button>
+        <button class="pt" data-prod="v2">
+          <span class="pt-dot soon"></span>
+          KALIX v2
+          <span class="pt-badge soon">Coming Soon</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- KALIX v1 -->
+  <div id="prod-v1" class="prod-panel active">
+
+    <!-- v1 hero -->
+    <div class="v1-hero">
+      <div class="w">
+        <div class="v1h-grid">
+          <div class="v1h-left">
+            <div class="v1h-name">KALIX</div>
+            <div class="v1h-ver">v1.0 · Hardware Auditor · Windows 64-bit</div>
+            <p class="v1h-desc">One portable executable that tells you exactly what is running inside your machine — and whether it should be trusted. Kernel-level truth. No abstraction. No network calls.</p>
+            <a href="https://github.com/Aotsuki-Unofficial1/aotsuki-unofficial.github.io/releases/download/v1.0.0/KALIX.zip" class="btn-download">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 10.5L1 4.5h4V0h4v4.5h4L7 10.5zM0 12h14v2H0z"/></svg>
+              Download KALIX v1 — Free
+            </a>
+            <p class="dl-note">WIN64 · ~19 MB · SHA-256 verified · No install required · Zero telemetry</p>
+          </div>
+          <div class="v1h-right">
+            <div class="terminal">
+              <div class="term-top">
+                <i class="td r"></i><i class="td y"></i><i class="td g"></i>
+                <span>KALIX.exe — Hardware Audit</span>
+              </div>
+              <div class="term-body" id="term" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <section class="section light-section">
+      <div class="w">
+        <div class="section-label blue">How It Works</div>
+        <h2 class="section-h2">Three phases. Under a second.</h2>
+        <div class="phases">
+          <div class="phase blue-phase">
+            <div class="phase-n">Phase 01</div>
+            <h3>Component Enumeration</h3>
+            <p>Direct hardware enumeration APIs — bypassing OS abstraction. CPU topology, PCI hierarchy, memory channels, firmware strings extracted at raw device level. Serial cross-reference detects cloning instantly.</p>
+          </div>
+          <div class="phase teal-phase">
+            <div class="phase-n">Phase 02</div>
+            <h3>Thermal Intelligence</h3>
+            <p>Direct sensor-bus polling at 100ms intervals across CPU and GPU. Junction temperature, TDP headroom, clock frequency, voltage state. Throttle events captured with full system snapshots.</p>
+          </div>
+          <div class="phase orange-phase">
+            <div class="phase-n">Phase 03</div>
+            <h3>Integrity Verification</h3>
+            <p>SHA-256 manifest cryptographically binding the audit to exact hardware state at time of execution. Deterministic, reproducible, and immutable across identical hardware states.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spec -->
+    <section class="section" style="background:#f8f9fb;border-top:1px solid #e5e7eb">
+      <div class="w">
+        <div class="spec-layout">
+          <div>
+            <div class="section-label teal">Technical Specification</div>
+            <h2 class="section-h2">Complete spec sheet.</h2>
+            <div class="spec-table">
+              <div class="sr"><span class="sk">Architecture</span><span class="sv">Python intelligence engine + custom-threaded UI</span></div>
+              <div class="sr"><span class="sk">Platform</span><span class="sv">Windows 64-bit · Portable .exe · No install</span></div>
+              <div class="sr"><span class="sk">Audit cycle</span><span class="sv">0.38ms from cold start</span></div>
+              <div class="sr"><span class="sk">Thermal polling</span><span class="sv">100ms interval · CPU and GPU simultaneously</span></div>
+              <div class="sr"><span class="sk">Integrity output</span><span class="sv">SHA-256 manifest per run · Deterministic</span></div>
+              <div class="sr"><span class="sk">Export format</span><span class="sv">Structured JSON · Any monitoring pipeline</span></div>
+              <div class="sr"><span class="sk">Network calls</span><span class="sv">Zero · Fully air-gap compatible</span></div>
+              <div class="sr"><span class="sk">File size</span><span class="sv">~19 MB · Distributed as ZIP</span></div>
+              <div class="sr last"><span class="sk">License</span><span class="sv">Free · Early-stage startup</span></div>
+            </div>
+          </div>
+          <div class="spec-cta-block">
+            <div class="scb-title">Ready to audit?</div>
+            <p>Free download. No registration. No telemetry. No strings.</p>
+            <a href="https://github.com/Aotsuki-Unofficial1/aotsuki-unofficial.github.io/releases/download/v1.0.0/KALIX.zip" class="btn-download">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 10.5L1 4.5h4V0h4v4.5h4L7 10.5zM0 12h14v2H0z"/></svg>
+              Download KALIX v1 — Free
+            </a>
+            <p class="dl-note">WIN64 · ~19 MB · SHA-256 verified</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div><!-- /prod-v1 -->
+
+  <!-- KALIX v2 -->
+  <div id="prod-v2" class="prod-panel">
+
+    <div class="v2-hero">
+      <div class="v2h-bg" aria-hidden="true">
+        <div class="v2hb-glow"></div>
+      </div>
+      <div class="w">
+        <div class="v2h-content">
+          <div class="v2h-badge"><span class="pt-dot soon"></span>In Active Development</div>
+          <h1 class="v2h-title">KALIX v2 —<br>Rebuilt from scratch.</h1>
+          <p class="v2h-desc">Everything v1 proved was possible, taken to its logical conclusion. Faster, deeper, cross-platform, AI-assisted. No release date — ships when it's right.</p>
+          <div class="v2h-btns">
+            <button class="btn-light" data-prod="v1" data-switch-prod="true">Use KALIX v1 Now →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section light-section">
+      <div class="w">
+        <div class="section-label violet">What's New in v2</div>
+        <h2 class="section-h2">Every limitation removed.</h2>
+        <div class="v2-feats">
+          <div class="v2f violet-card">
+            <div class="v2f-ico">🖥</div>
+            <h3>Cross-Platform</h3>
+            <p>Windows + Linux + macOS. One codebase, full parity across all three platforms.</p>
+          </div>
+          <div class="v2f blue-card">
+            <div class="v2f-ico">🧠</div>
+            <h3>AI Anomaly Detection</h3>
+            <p>Machine learning-assisted failure prediction and hardware anomaly flagging.</p>
+          </div>
+          <div class="v2f teal-card">
+            <div class="v2f-ico">🌐</div>
+            <h3>Fleet Mode</h3>
+            <p>Audit entire machine fleets remotely. Centralised manifest management.</p>
+          </div>
+          <div class="v2f orange-card">
+            <div class="v2f-ico">🔌</div>
+            <h3>Plugin API</h3>
+            <p>Open extensibility. Build and distribute your own hardware audit modules.</p>
+          </div>
+          <div class="v2f green-card">
+            <div class="v2f-ico">✍️</div>
+            <h3>Signed Binaries</h3>
+            <p>Cryptographically signed distribution. Verified publisher status at launch.</p>
+          </div>
+          <div class="v2f amber-card">
+            <div class="v2f-ico">📊</div>
+            <h3>GUI Dashboard</h3>
+            <p>Optional graphical interface alongside the CLI engine for non-terminal users.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background:#f8f9fb;border-top:1px solid #e5e7eb">
+      <div class="w">
+        <div class="section-label blue">Development Roadmap</div>
+        <h2 class="section-h2">How we're getting there.</h2>
+        <div class="roadmap">
+          <div class="rm done">
+            <div class="rm-line"><div class="rm-dot done-dot"></div><div class="rm-connector"></div></div>
+            <div class="rm-body"><div class="rm-title">v1.0 — Foundation <span class="rm-badge done-badge">Shipped ✓</span></div><p>WIN64 kernel auditing, thermal monitoring, SHA-256 manifests. Available now — free download.</p></div>
+          </div>
+          <div class="rm active">
+            <div class="rm-line"><div class="rm-dot active-dot"></div><div class="rm-connector"></div></div>
+            <div class="rm-body"><div class="rm-title">v2 Architecture <span class="rm-badge active-badge">Active →</span></div><p>Full codebase rewrite. Cross-platform abstraction layer. Modular plugin architecture.</p></div>
+          </div>
+          <div class="rm">
+            <div class="rm-line"><div class="rm-dot future-dot"></div><div class="rm-connector"></div></div>
+            <div class="rm-body"><div class="rm-title">v2 Alpha — Internal</div><p>Linux and macOS parity established. Core audit pipeline validated across three platforms.</p></div>
+          </div>
+          <div class="rm">
+            <div class="rm-line"><div class="rm-dot future-dot"></div><div class="rm-connector"></div></div>
+            <div class="rm-body"><div class="rm-title">v2 Beta — Limited</div><p>AI module integration. Fleet mode. Selected external testers from the engineering community.</p></div>
+          </div>
+          <div class="rm last">
+            <div class="rm-line"><div class="rm-dot future-dot"></div></div>
+            <div class="rm-body"><div class="rm-title">v2.0 — Public Release</div><p>Signed binaries. Plugin API docs. Enterprise deployment. Ships when it's right — no date set.</p></div>
+          </div>
+        </div>
+        <div class="v2-cta-strip">
+          <p>While v2 is being built, <strong>KALIX v1 is production-ready and completely free.</strong></p>
+          <a href="https://github.com/Aotsuki-Unofficial1/aotsuki-unofficial.github.io/releases/download/v1.0.0/KALIX.zip" class="btn-ink">Download KALIX v1 Free →</a>
+        </div>
+      </div>
+    </section>
+  </div><!-- /prod-v2 -->
+
+</div><!-- /page-products -->
+
+
+<!-- ═══════════════════════════════
+     PAGE: ABOUT
+═══════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="page-hero about-hero">
+    <div class="w">
+      <div class="ph-inner">
+        <div class="section-label cyan">About</div>
+        <h1 class="page-h1">We are engineers<br>and investors.</h1>
+        <p class="page-sub">Aotsuki Labs — deep-tech engineering collective. Est. 2025.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section light-section">
+    <div class="w">
+      <div class="about-split">
+        <div class="about-main reveal">
+          <p class="about-lead">Aotsuki Labs is a multi-disciplinary technology collective founded on one conviction: the most powerful software is built by people who understand the hardware it runs on.</p>
+          <p class="body-text mt">We don't ship features. We ship instruments — tools that reveal truth about the systems operators depend on. KALIX exists because no existing tool does exactly this, in exactly this way, with exactly this level of trust in the operator's intelligence.</p>
+          <p class="body-text mt">We are an early-stage startup. We are not a verified software publisher. KALIX is free, portable, and makes zero network calls. Make your own judgement about trust — the binary will tell you the truth either way.</p>
+        </div>
+        <div class="about-card reveal">
+          <div class="ac-row"><span class="ac-k">Founded</span><span class="ac-v">2025</span></div>
+          <div class="ac-row"><span class="ac-k">Type</span><span class="ac-v">Engineering Collective</span></div>
+          <div class="ac-row"><span class="ac-k">First product</span><span class="ac-v">KALIX v1</span></div>
+          <div class="ac-row"><span class="ac-k">Sectors</span><span class="ac-v">Hardware · Software · Networks</span></div>
+          <div class="ac-row"><span class="ac-k">Publisher status</span><span class="ac-v warn">Not verified (early-stage)</span></div>
+          <div class="ac-row last"><span class="ac-k">Fund status</span><span class="ac-v warn">Not a regulated fund</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark-section">
+    <div class="w">
+      <div class="section-label cyan">Manifesto</div>
+      <h2 class="section-h2 light">What we believe.</h2>
+      <div class="manifesto-grid">
+        <div class="mf blue-border"><span class="mf-n">01</span><h3>Hardware is the ground truth</h3><p>Every software abstraction eventually runs on physical silicon. The engineers who understand that layer hold a permanent advantage. We build for them — and we are them.</p></div>
+        <div class="mf teal-border"><span class="mf-n">02</span><h3>Trust through transparency</h3><p>We're not a verified publisher. Our response is transparency: KALIX is free, makes zero network calls. Trust us or don't — the binary tells the truth.</p></div>
+        <div class="mf violet-border"><span class="mf-n">03</span><h3>Assume operator competence</h3><p>No onboarding flows, tooltips, or feature prompts. If you need to be taught how to use our tools, we've failed.</p></div>
+        <div class="mf orange-border"><span class="mf-n">04</span><h3>No telemetry is architecture</h3><p>A constraint designed at the earliest stage. Reversing it would require rebuilding the product from scratch. That is intentional.</p></div>
+        <div class="mf green-border"><span class="mf-n">05</span><h3>Slow is smooth. Smooth is fast.</h3><p>KALIX v2 ships when it's right. Our investment thesis runs on 10-year horizons. Infrastructure that lasts is built deliberately.</p></div>
+        <div class="mf amber-border"><span class="mf-n">06</span><h3>The collective owns the roadmap</h3><p>Every major decision is contestable, documented, owned by the collective — not the founder, not a single engineer.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════
+     PAGE: CAPABILITIES
+═══════════════════════════════ -->
+<div id="page-capabilities" class="page">
+  <div class="page-hero caps-hero">
+    <div class="w">
+      <div class="ph-inner">
+        <div class="section-label teal">Capabilities</div>
+        <h1 class="page-h1">The command layer.</h1>
+        <p class="page-sub">Engineering and leadership — the operational competencies that ship products.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section light-section">
+    <div class="w">
+      <div class="cap-list">
+        <div class="cap reveal">
+          <div class="cap-marker blue-marker">01</div>
+          <div class="cap-body">
+            <h3>Strategic Project Orchestration</h3>
+            <p>Leading multi-disciplinary engineering teams across hardware, software, and network domains. Delivery through dependency graph resolution — not authority chains. Sprint architecture around real constraints, not calendar cycles. Deliverable integrity is a design constraint encoded at inception.</p>
+            <div class="cap-tags blue-tags">
+              <span>Sprint Architecture</span><span>Dependency Resolution</span><span>Multi-domain Teams</span><span>Velocity Benchmarking</span>
+            </div>
+          </div>
+        </div>
+        <div class="cap reveal">
+          <div class="cap-marker teal-marker">02</div>
+          <div class="cap-body">
+            <h3>Collaborative Architecture</h3>
+            <p>Defining technical roadmaps across 12–36 month horizons. Every architecture decision carries an explicit rationale, a list of considered alternatives, and conditions for revisiting. Technology selection driven by total engineering cost over time — not hype cycles or vendor pressure.</p>
+            <div class="cap-tags teal-tags">
+              <span>Technical Roadmapping</span><span>Build-vs-Buy Analysis</span><span>Architecture Review</span><span>Decision Documentation</span>
+            </div>
+          </div>
+        </div>
+        <div class="cap reveal">
+          <div class="cap-marker orange-marker">03</div>
+          <div class="cap-body">
+            <h3>Rapid Crisis Resolution</h3>
+            <p>Root-cause-first methodology under production pressure. No patch ships without a documented origin chain. Race conditions, firmware regressions, cascading consensus failures — the process is: isolate, characterise, trace, fix, harden. Every post-mortem becomes an architectural constraint.</p>
+            <div class="cap-tags orange-tags">
+              <span>Root-Cause Analysis</span><span>Post-Mortem Discipline</span><span>Production Triage</span><span>Architecture Hardening</span>
+            </div>
+          </div>
+        </div>
+        <div class="cap reveal">
+          <div class="cap-marker violet-marker">04</div>
+          <div class="cap-body">
+            <h3>Kernel-Level Systems Engineering</h3>
+            <p>Direct hardware enumeration API access, multi-threaded sensor acquisition, and deterministic output generation. We write software that knows exactly where it's running — down to the silicon. Every abstraction layer bypassed is a potential attack surface eliminated.</p>
+            <div class="cap-tags violet-tags">
+              <span>Hardware Enumeration</span><span>Threaded Architecture</span><span>Deterministic Output</span><span>Sensor Acquisition</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════
+     PAGE: INVEST
+═══════════════════════════════ -->
+<div id="page-invest" class="page">
+  <div class="page-hero invest-hero">
+    <div class="w">
+      <div class="ph-inner">
+        <div class="section-label amber">Investment Thesis</div>
+        <h1 class="page-h1">We back deep-tech<br>from the inside.</h1>
+        <p class="page-sub">Capital and engineering talent into the infrastructure layer.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="invest-disclaimer">
+    <div class="w">
+      <div class="id-inner">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>
+        Early-stage startup · Not a regulated investment vehicle · This describes our philosophy, not a formal fund offering
+      </div>
+    </div>
+  </div>
+
+  <section class="section light-section">
+    <div class="w">
+      <div class="invest-intro reveal">
+        <p class="about-lead">Aotsuki is not just a product company. We invest capital and engineering talent into the infrastructure layer of technology — the part most investors don't understand because they've never built it.</p>
+        <p class="body-text mt">Most investment in tech targets the application layer. We invest in what those products run on — hardware intelligence, kernel tooling, network primitives, distributed consensus protocols. These are assets that compound over decades.</p>
+      </div>
+
+      <div class="thesis-cards reveal">
+        <div class="tc violet-card">
+          <div class="tc-ico">🛡</div>
+          <h3>Infrastructure-First</h3>
+          <p>Below the application layer. Hardware intelligence, kernel tooling, network primitives, distributed consensus. Applications come and go. Infrastructure stays.</p>
+        </div>
+        <div class="tc blue-card">
+          <div class="tc-ico">⏳</div>
+          <h3>Long-Horizon Thinking</h3>
+          <p>10-year investment horizons. Deep-tech compounds slowly and defensibly. We don't optimise for growth metrics — we optimise for durability and engineering correctness.</p>
+        </div>
+        <div class="tc teal-card">
+          <div class="tc-ico">🔍</div>
+          <h3>Operator-Led Due Diligence</h3>
+          <p>We read source code, profile hardware, and stress-test architecture before committing capital. No surface-level pitch deck evaluation. If we can't understand it, we don't invest.</p>
+        </div>
+        <div class="tc orange-card">
+          <div class="tc-ico">🧩</div>
+          <h3>Collective Intelligence</h3>
+          <p>Every investment thesis is subject to collective engineering scrutiny. We move when the engineering evidence is compelling — speed from clarity, not urgency.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark-section">
+    <div class="w">
+      <div class="section-label amber">What Makes Us Different</div>
+      <h2 class="section-h2 light">We invest in what we understand because we built it.</h2>
+      <div class="diff-cols">
+        <div class="diff-item reveal">
+          <div class="di-check blue">✓</div>
+          <div><strong>We read source code before we commit.</strong> Not summaries — the actual source, profiled and stress-tested under realistic conditions.</div>
+        </div>
+        <div class="diff-item reveal">
+          <div class="di-check teal">✓</div>
+          <div><strong>We invest engineering time before capital.</strong> Understanding costs more than money — and costs it first. KALIX is proof we can execute.</div>
+        </div>
+        <div class="diff-item reveal">
+          <div class="di-check violet">✓</div>
+          <div><strong>We build alongside our investments.</strong> KALIX validates our thesis from the inside. We invest in what we've built.</div>
+        </div>
+        <div class="diff-item reveal">
+          <div class="di-check orange">✓</div>
+          <div><strong>No forced exit pressure.</strong> We invest on the same 10-year horizon we operate on. No LP obligations, no forced exits.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section light-section">
+    <div class="w">
+      <div class="invest-cta-block reveal">
+        <h3>Interested in Aotsuki?</h3>
+        <p>We don't have a formal investment intake process yet. The best way to engage is to use what we've shipped and understand what we're building.</p>
+        <div class="icb-btns">
+          <a href="https://github.com/Aotsuki-Unofficial1/aotsuki-unofficial.github.io/releases/download/v1.0.0/KALIX.zip" class="btn-ink">Download KALIX v1 — Free</a>
+          <button class="btn-outline-ink" data-page="products" data-prod="v2">KALIX v2 Roadmap →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="w">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-hex small">
+          <svg width="12" height="12" viewBox="0 0 20 20" fill="none">
+            <path d="M10 1L19 5.5V14.5L10 19L1 14.5V5.5L10 1Z" stroke="white" stroke-width="1.5" fill="none"/>
+            <circle cx="10" cy="10" r="2.5" fill="white"/>
+          </svg>
+        </div>
+        <span>Aotsuki</span>
+      </div>
+      <p class="footer-tagline">Engineering Unified Intelligence · Deep-tech collective · Est. 2025</p>
+    </div>
+    <div class="footer-grid">
+      <div>
+        <div class="fc-title">Products</div>
+        <div class="fc-links">
+          <button data-page="products" data-prod="v1">KALIX v1</button>
+          <button data-page="products" data-prod="v2">KALIX v2</button>
+          <a href="https://github.com/Aotsuki-Unofficial1/aotsuki-unofficial.github.io/releases/download/v1.0.0/KALIX.zip">Download Free</a>
+        </div>
+      </div>
+      <div>
+        <div class="fc-title">Company</div>
+        <div class="fc-links">
+          <button data-page="about">About</button>
+          <button data-page="capabilities">Capabilities</button>
+          <button data-page="invest">Invest</button>
+        </div>
+      </div>
+      <div>
+        <div class="fc-title">Legal</div>
+        <p class="footer-legal">Early-stage startup.<br>Not a verified publisher.<br>Not a regulated fund.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Aotsuki Labs. Built by engineers, for engineers.</span>
+      <div class="footer-status"><span class="dot-live"></span>KALIX v1 · Available Now</div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
